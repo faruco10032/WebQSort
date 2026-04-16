@@ -4,7 +4,7 @@ import {
   DragEndEvent,
   DragStartEvent,
   DragOverlay,
-  closestCenter,
+  pointerWithin,
   PointerSensor,
   KeyboardSensor,
   useSensor,
@@ -44,7 +44,6 @@ export function FinalSort() {
   );
 
   const items = deck?.items ?? [];
-  const maxCapacity = Math.max(...pileConfig.map((p) => p.capacity), 1);
 
   // Auto-save
   useEffect(() => {
@@ -136,7 +135,7 @@ export function FinalSort() {
   return (
     <DndContext
       sensors={sensors}
-      collisionDetection={closestCenter}
+      collisionDetection={pointerWithin}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
@@ -150,7 +149,7 @@ export function FinalSort() {
         </div>
 
         {/* Pile grid */}
-        <div className="flex-1 flex gap-1 overflow-x-auto items-end min-h-0 pb-1">
+        <div className="flex gap-1 overflow-x-auto items-end pb-1 shrink-0">
           {pileConfig.map((pile, idx) => {
             const count = pileItems[idx]?.length ?? 0;
             return (
@@ -160,7 +159,6 @@ export function FinalSort() {
                 label={pileLabels[idx] ?? ''}
                 capacity={pile.capacity}
                 count={count}
-                maxCapacity={maxCapacity}
               >
                 {(pileItems[idx] ?? []).map((itemId) => (
                   <DraggableItem
@@ -184,13 +182,7 @@ export function FinalSort() {
         />
 
         {/* Complete button */}
-        <div className="flex items-center justify-between mt-1 px-2">
-          <button
-            onClick={() => useSortStore.getState().setPhase('preliminary')}
-            className="px-4 py-2 text-sm border rounded hover:bg-gray-100 dark:hover:bg-gray-800"
-          >
-            {t(lang, 'backToPrevious')}
-          </button>
+        <div className="flex items-center justify-end mt-1 px-2">
           <button
             onClick={handleComplete}
             disabled={!canComplete}
@@ -240,11 +232,11 @@ function UnassignedArea({
   const { setNodeRef } = useDroppable({ id: 'unassigned' });
 
   return (
-    <div ref={setNodeRef} className="mt-1 border-t pt-1">
-      <div className="flex gap-3 overflow-x-auto pb-1">
+    <div ref={setNodeRef} className="flex-1 mt-1 border-t pt-1 min-h-0">
+      <div className="flex gap-3 h-full overflow-x-auto pb-1">
         {(['uncharacteristic', 'neutral', 'characteristic'] as const).map((pile) => (
-          <div key={pile} className="flex-1 min-w-[180px]">
-            <div className="text-xs font-medium text-gray-500 mb-1">
+          <div key={pile} className="flex-1 min-w-[180px] flex flex-col">
+            <div className="text-xs font-medium text-gray-500 mb-1 shrink-0">
               {pile === 'uncharacteristic'
                 ? t(lang, 'uncharacteristic')
                 : pile === 'neutral'
@@ -252,7 +244,7 @@ function UnassignedArea({
                 : t(lang, 'characteristic')}{' '}
               ({unassigned[pile]?.length ?? 0})
             </div>
-            <div className="flex flex-wrap gap-1 max-h-28 overflow-y-auto">
+            <div className="flex flex-wrap gap-1 flex-1 overflow-y-auto content-start">
               {(unassigned[pile] ?? []).map((itemId) => (
                 <DraggableItem
                   key={itemId}

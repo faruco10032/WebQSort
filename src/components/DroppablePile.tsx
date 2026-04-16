@@ -6,18 +6,21 @@ interface Props {
   label: string;
   capacity: number;
   count: number;
-  maxCapacity: number;
   children: ReactNode;
 }
 
-export function DroppablePile({ id, label, capacity, count, maxCapacity, children }: Props) {
+const CARD_HEIGHT = 22; // px per card slot
+const HEADER_HEIGHT = 40; // px for label + count
+const PADDING = 8;
+
+export function DroppablePile({ id, label, capacity, count, children }: Props) {
   const { setNodeRef, isOver } = useDroppable({ id });
 
   const isOverCapacity = count > capacity;
   const isFull = count === capacity;
 
-  // Height proportional to capacity relative to max
-  const heightPercent = Math.max((capacity / maxCapacity) * 100, 30);
+  // Height based on capacity: each card slot ~22px
+  const pileHeight = HEADER_HEIGHT + PADDING + capacity * CARD_HEIGHT;
 
   return (
     <div
@@ -31,18 +34,18 @@ export function DroppablePile({ id, label, capacity, count, maxCapacity, childre
           ? 'border-green-400 bg-green-50/50 dark:bg-green-900/10'
           : 'border-gray-300 dark:border-gray-600'
       }`}
-      style={{ height: `${heightPercent}%`, minHeight: '80px' }}
+      style={{ height: `${pileHeight}px` }}
     >
       {/* Header */}
-      <div className="text-center py-1 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/80 rounded-t shrink-0">
-        <div className="text-[10px] text-gray-600 dark:text-gray-400 leading-tight px-1 font-medium" title={label}>
+      <div className="text-center py-0.5 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/80 rounded-t shrink-0">
+        <div className="text-[10px] text-gray-600 dark:text-gray-400 leading-tight px-1 font-medium truncate" title={label}>
           {label}
         </div>
         <div className={`text-xs font-bold ${isOverCapacity ? 'text-red-600' : isFull ? 'text-green-600' : 'text-gray-500'}`}>
           {count} / {capacity}
         </div>
       </div>
-      {/* Items - overflow hidden, no wrap */}
+      {/* Items - overflow hidden */}
       <div className="flex-1 flex flex-col gap-0.5 p-1 overflow-hidden">
         {children}
       </div>
