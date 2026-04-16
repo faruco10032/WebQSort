@@ -9,13 +9,14 @@ import {
   KeyboardSensor,
   useSensor,
   useSensors,
+  useDroppable,
 } from '@dnd-kit/core';
 import { useSortStore } from '../hooks/useSortStore';
 import { t } from '../lib/i18n';
-import { validateSortComplete } from '../lib/validation';
 import { PILE_LABELS_JA } from '../types';
 import { DroppablePile } from './DroppablePile';
 import { DraggableItem } from './DraggableItem';
+import { exportCsv, suggestFilename, downloadFile } from '../lib/exporters';
 
 export function FinalSort() {
   const {
@@ -28,21 +29,22 @@ export function FinalSort() {
     removeFinal,
     setPhase,
     saveToLocalStorage,
-    completeSession,
+    metadata,
+    setMetadata,
+    getSortVector,
+    clearCurrentSession,
     lang,
   } = useSortStore();
 
   const [activeId, setActiveId] = useState<number | null>(null);
-  const [search, setSearch] = useState('');
-  const [popup, setPopup] = useState<number | null>(null);
-  const [validationErrors, setValidationErrors] = useState<string[]>([]);
 
   const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
+    useSensor(PointerSensor, { activationConstraint: { distance: 3 } }),
     useSensor(KeyboardSensor)
   );
 
   const items = deck?.items ?? [];
+  const maxCapacity = Math.max(...pileConfig.map((p) => p.capacity), 1);
 
   // Auto-save
   useEffect(() => {
@@ -74,17 +76,15 @@ export function FinalSort() {
   }, [finalAssignments, pileConfig]);
 
   const getItemText = (id: number) => items.find((i) => i.id === id)?.text ?? '';
-  const truncate = (text: string, len = 23) => (text.length > len ? text.slice(0, len) + '...' : text);
 
-  // Search filter
-  const matchesSearch = (id: number) => {
-    if (!search) return true;
-    const text = getItemText(id);
-    return (
-      String(id).includes(search) ||
-      text.toLowerCase().includes(search.toLowerCase())
-    );
-  };
+  // Check if any pile is over capacity
+  const hasOverCapacity = pileConfig.some((pile) => {
+    const count = pileItems[pile.index]?.length ?? 0;
+    return count > pile.capacity;
+  });
+
+  const allPlaced = Object.keys(finalAssignments).length === items.length;
+  const canComplete = allPlaced && !hasOverCapacity;
 
   const handleDragStart = (event: DragStartEvent) => {
     setActiveId(Number(event.active.id));
@@ -98,7 +98,6 @@ export function FinalSort() {
     const itemId = Number(active.id);
     const targetStr = String(over.id);
 
-    // Target is a pile
     if (targetStr.startsWith('pile-')) {
       const targetPile = parseInt(targetStr.replace('pile-', ''));
       const currentPile = finalAssignments[itemId];
@@ -107,9 +106,7 @@ export function FinalSort() {
       } else {
         assignFinal(itemId, targetPile);
       }
-    }
-    // Target is "unassigned" area - remove from pile
-    else if (targetStr === 'unassigned') {
+    } else if (targetStr === 'unassigned') {
       if (finalAssignments[itemId] !== undefined) {
         removeFinal(itemId);
       }
@@ -117,18 +114,24 @@ export function FinalSort() {
   };
 
   const handleComplete = () => {
-    if (!deck) return;
-    const errors = validateSortComplete(finalAssignments, deck, pileConfig);
-    if (errors.length > 0) {
-      setValidationErrors(errors);
-      return;
-    }
-    completeSession();
+    if (!canComplete || !deck) return;
+    const now = new Date().toISOString();
+    setMetadata({ finishedAt: now });
+
+    // Build export data with finishedAt set
+    const sortVector = getSortVector();
+    const finalMetadata = { ...metadata, finishedAt: now };
+    const csv = exportCsv({ metadata: finalMetadata, deck, sortVector, pileConfig });
+    downloadFile(csv, suggestFilename(finalMetadata));
+
+    // Clear session from localStorage (don't persist completed data)
+    clearCurrentSession();
     setPhase('export');
   };
 
-  const allPlaced = Object.keys(finalAssignments).length === items.length;
   const pileLabels = lang === 'ja' ? PILE_LABELS_JA : pileConfig.map((p) => p.label);
+  const activeItemText = activeId !== null ? getItemText(activeId) : '';
+  const activePrelimPile = activeId !== null ? prelimAssignments[activeId] : undefined;
 
   return (
     <DndContext
@@ -139,145 +142,129 @@ export function FinalSort() {
     >
       <div className="h-full flex flex-col p-2 overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between mb-2 px-2">
-          <h2 className="text-lg font-bold">{t(lang, 'finalSort')}</h2>
-          <div className="flex items-center gap-2">
-            <input
-              type="text"
-              placeholder={t(lang, 'searchItems')}
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="text-sm border rounded px-2 py-1 w-48 dark:bg-gray-800 dark:border-gray-600"
-            />
-            <span className="text-sm text-gray-500">
-              {Object.keys(finalAssignments).length}/{items.length}
-            </span>
-          </div>
+        <div className="flex items-center justify-between mb-1 px-2">
+          <h2 className="text-lg font-bold">{t(lang, 'mainSort')}</h2>
+          <span className="text-sm text-gray-500">
+            {Object.keys(finalAssignments).length}/{items.length}
+          </span>
         </div>
 
         {/* Pile grid */}
-        <div className="flex-1 flex gap-1 overflow-x-auto min-h-0">
+        <div className="flex-1 flex gap-1 overflow-x-auto items-end min-h-0 pb-1">
           {pileConfig.map((pile, idx) => {
             const count = pileItems[idx]?.length ?? 0;
-            const isOver = count > pile.capacity;
-            const isUnder = count < pile.capacity && allPlaced;
             return (
               <DroppablePile
                 key={idx}
                 id={`pile-${idx}`}
-                label={`${idx + 1}`}
-                sublabel={pileLabels[idx] ?? ''}
+                label={pileLabels[idx] ?? ''}
                 capacity={pile.capacity}
                 count={count}
-                isOver={isOver}
-                isUnder={isUnder}
+                maxCapacity={maxCapacity}
               >
-                {(pileItems[idx] ?? [])
-                  .filter(matchesSearch)
-                  .map((itemId) => (
-                    <DraggableItem
-                      key={itemId}
-                      id={itemId}
-                      label={truncate(getItemText(itemId))}
-                      itemNumber={itemId}
-                      onClick={() => setPopup(itemId)}
-                    />
-                  ))}
+                {(pileItems[idx] ?? []).map((itemId) => (
+                  <DraggableItem
+                    key={itemId}
+                    id={itemId}
+                    label={getItemText(itemId)}
+                    prelimPile={prelimAssignments[itemId]}
+                  />
+                ))}
               </DroppablePile>
             );
           })}
         </div>
 
         {/* Unassigned items */}
-        <div className="mt-2 border-t pt-2">
-          <div className="flex gap-4 overflow-x-auto pb-2">
-            {(['uncharacteristic', 'neutral', 'characteristic'] as const).map((pile) => (
-              <div key={pile} className="flex-1 min-w-[200px]">
-                <div className="text-xs font-medium text-gray-500 mb-1">
-                  {pile === 'uncharacteristic'
-                    ? t(lang, 'uncharacteristic')
-                    : pile === 'neutral'
-                    ? t(lang, 'neutral')
-                    : t(lang, 'characteristic')}{' '}
-                  ({unassigned[pile].length})
-                </div>
-                <div className="flex flex-wrap gap-1 max-h-32 overflow-y-auto">
-                  {unassigned[pile].filter(matchesSearch).map((itemId) => (
-                    <DraggableItem
-                      key={itemId}
-                      id={itemId}
-                      label={truncate(getItemText(itemId))}
-                      itemNumber={itemId}
-                      onClick={() => setPopup(itemId)}
-                    />
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <UnassignedArea
+          unassigned={unassigned}
+          getItemText={getItemText}
+          prelimAssignments={prelimAssignments}
+          lang={lang}
+        />
 
         {/* Complete button */}
-        <div className="flex items-center justify-between mt-2 px-2">
+        <div className="flex items-center justify-between mt-1 px-2">
           <button
-            onClick={() => setPhase('preliminary')}
+            onClick={() => useSortStore.getState().setPhase('preliminary')}
             className="px-4 py-2 text-sm border rounded hover:bg-gray-100 dark:hover:bg-gray-800"
           >
             {t(lang, 'backToPrevious')}
           </button>
-          <div>
-            {validationErrors.length > 0 && (
-              <div className="text-red-600 text-xs mb-1">
-                {validationErrors.map((e, i) => (
-                  <div key={i}>{e}</div>
-                ))}
-              </div>
-            )}
-            <button
-              onClick={handleComplete}
-              className={`px-6 py-2 rounded font-medium transition ${
-                allPlaced
-                  ? 'bg-green-600 text-white hover:bg-green-700'
-                  : 'bg-gray-300 text-gray-500 dark:bg-gray-700 dark:text-gray-400'
-              }`}
-            >
-              {t(lang, 'complete')}
-            </button>
-          </div>
+          <button
+            onClick={handleComplete}
+            disabled={!canComplete}
+            className={`px-6 py-2 rounded font-medium transition ${
+              canComplete
+                ? 'bg-green-600 text-white hover:bg-green-700'
+                : 'bg-gray-300 text-gray-500 dark:bg-gray-700 dark:text-gray-400 cursor-not-allowed'
+            }`}
+          >
+            {t(lang, 'complete')}
+          </button>
         </div>
       </div>
 
-      {/* Drag overlay */}
+      {/* Drag overlay - enlarged to show full text */}
       <DragOverlay>
         {activeId !== null ? (
-          <div className="card-item shadow-lg">
-            {truncate(getItemText(activeId))}
-            <span className="text-xs text-gray-400 ml-1">#{activeId}</span>
+          <div
+            className={`px-4 py-3 border-2 rounded shadow-xl text-sm max-w-xs z-50 ${
+              activePrelimPile === 'uncharacteristic'
+                ? 'bg-red-50 border-red-300'
+                : activePrelimPile === 'characteristic'
+                ? 'bg-green-50 border-green-300'
+                : 'bg-white border-gray-300'
+            }`}
+            style={{ minWidth: '200px' }}
+          >
+            {activeItemText}
           </div>
         ) : null}
       </DragOverlay>
-
-      {/* Popup */}
-      {popup !== null && (
-        <div
-          className="fixed inset-0 bg-black/40 flex items-center justify-center z-50"
-          onClick={() => setPopup(null)}
-        >
-          <div
-            className="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md mx-4 shadow-xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <p className="text-lg leading-relaxed">{getItemText(popup)}</p>
-            <p className="text-sm text-gray-400 mt-3">#{popup}</p>
-            <button
-              onClick={() => setPopup(null)}
-              className="mt-4 px-4 py-1 bg-gray-200 dark:bg-gray-700 rounded text-sm"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
     </DndContext>
+  );
+}
+
+function UnassignedArea({
+  unassigned,
+  getItemText,
+  prelimAssignments,
+  lang,
+}: {
+  unassigned: Record<string, number[]>;
+  getItemText: (id: number) => string;
+  prelimAssignments: Record<number, string>;
+  lang: 'ja' | 'en';
+}) {
+  const { setNodeRef } = useDroppable({ id: 'unassigned' });
+
+  return (
+    <div ref={setNodeRef} className="mt-1 border-t pt-1">
+      <div className="flex gap-3 overflow-x-auto pb-1">
+        {(['uncharacteristic', 'neutral', 'characteristic'] as const).map((pile) => (
+          <div key={pile} className="flex-1 min-w-[180px]">
+            <div className="text-xs font-medium text-gray-500 mb-1">
+              {pile === 'uncharacteristic'
+                ? t(lang, 'uncharacteristic')
+                : pile === 'neutral'
+                ? t(lang, 'neutral')
+                : t(lang, 'characteristic')}{' '}
+              ({unassigned[pile]?.length ?? 0})
+            </div>
+            <div className="flex flex-wrap gap-1 max-h-28 overflow-y-auto">
+              {(unassigned[pile] ?? []).map((itemId) => (
+                <DraggableItem
+                  key={itemId}
+                  id={itemId}
+                  label={getItemText(itemId)}
+                  prelimPile={prelimAssignments[itemId] as 'uncharacteristic' | 'neutral' | 'characteristic'}
+                />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }

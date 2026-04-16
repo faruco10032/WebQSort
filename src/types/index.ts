@@ -19,37 +19,16 @@ export interface PileConfig {
 
 export interface SessionMetadata {
   targetId: string;
-  raterId: string;
-  participantName: string;
-  conditionAvatar: boolean;
-  conditionVoice: boolean;
+  condition: string;
   trial: number;
   deckName: string;
-  ratingMode: 'self' | 'other';
-  notes: string;
   startedAt: string;
   finishedAt: string;
 }
 
 export type PrelimPile = 'uncharacteristic' | 'neutral' | 'characteristic';
 
-export interface SortState {
-  prelimAssignments: Record<number, PrelimPile>;
-  finalAssignments: Record<number, number>; // itemId -> pile index (0-8)
-  currentPrelimIndex: number;
-}
-
-export type AppPhase = 'setup' | 'preliminary' | 'final' | 'export' | 'history';
-
-export interface CompletedSession {
-  id: string;
-  metadata: SessionMetadata;
-  deck: Deck;
-  sortVector: number[];   // pile values (1-9) indexed by item order
-  pileConfig: PileConfig[];
-  operationLog: OperationLogEntry[];
-  completedAt: string;
-}
+export type AppPhase = 'setup' | 'preliminary' | 'final' | 'export';
 
 export interface OperationLogEntry {
   timestamp: string;
