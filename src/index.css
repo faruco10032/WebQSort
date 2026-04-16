@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+.pile-drop-area {
+  min-height: 60px;
+  transition: background-color 0.15s ease;
+}
+
+.pile-drop-area.over {
+  @apply ring-2 ring-blue-400 bg-blue-50 dark:bg-blue-900/30;
+}
+
+.card-item {
+  @apply px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded shadow-sm text-sm cursor-grab;
+  touch-action: none;
+}
+
+.card-item:active {
+  @apply cursor-grabbing shadow-md;
+}
+
+.card-item.dragging {
+  @apply opacity-50;
+}
+
+.capacity-ok {
+  @apply text-green-600 dark:text-green-400;
+}
+
+.capacity-over {
+  @apply text-red-600 dark:text-red-400 font-bold;
+}
+
+.capacity-under {
+  @apply text-yellow-600 dark:text-yellow-400;
+}

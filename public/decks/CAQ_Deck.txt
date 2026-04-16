@@ -1,0 +1,121 @@
+9
+Extremely Uncharacteristic
+5
+Quite Uncharacteristic
+8
+Fairly Uncharacteristic
+12
+Somewhat Uncharacteristic
+16
+Relatively Neutral
+18
+Somewhat Characteristic
+16
+Fairly Characteristic
+12
+Quite Characteristic
+8
+Extremely Characteristic
+5
+Is critical, skeptical, not easily impressed. 1
+Is a genuinely dependable and responsible person. 2
+Has a wide range of interests. Regardless of how deep or superficial the interests may be. 3
+Is a talkative individual. 4
+Behaves in a giving way to others. Regardless of the motivation involved. 5
+Is fastidious. A perfectionist; fussy about minor things. 6
+Favors conservative values in a variety of areas. Favors preserving traditional practices, values, and conditions. 7
+Appears to have a high degree of intellectual capacity. This item refers to capability, not necessarily performance. Also, originality is not assumed. 8
+Is uncomfortable with uncertainty and complexities. 9
+Anxiety and tension find outlet in bodily symptoms. Low Placement implies that body does not react at all to stress (e.g., person does not perspire, shake, or have other bodily signs of nervousness.) High Placement implies bodily dysfunction or physical illness caused by stress. 10
+Is protective of those close to him or her. Low Placement implies person acts in under-protective, unconcerned manner. Medium Placement implies appropriate degree of concern. High Placement implies over-protective. 11
+Tends to be self-defensive. Quick to protect or defend self from criticism; tends to deny criticism; humorless about shortcomings. 12
+Is thin skinned; sensitive to anything that can be construed as criticism or an interpersonal slight. E.g., rudeness or insult. 13
+Genuinely submissive; accepts domination comfortably. 14
+Is skilled in social techniques of imaginative play, pretending and humor. E.g., would be good at charades. 15
+Is introspective and concerned with self as an object. Thinks about self; examines own thoughts and feelings. Does not necessarily imply insight or mean that person understands self well. 16
+Behaves in a sympathetic or considerate manner. 17
+Initiates humor. E.g., makes jokes or tells humorous stories. 18
+Seeks reassurance from others. 19
+Has a rapid personal tempo; behaves and acts quickly. 20
+Arouses nurturant feelings in others. Others tend to take care of and protect; causes others to feel motherly or fatherly toward him/her. 21
+Feels a lack of personal meaning in life. 22
+Extrapunitive; tends to transfer or project blame. Tends to blame others for own failures or faults. 23
+Prides self on being "objective," rational. 24
+Tends toward over-control of needs and impulses; binds tensions excessively; delays gratification unnecessarily. Holds everything in; keeps a tight rein on his or her emotions; postpones pleasure unnecessarily. 25
+Is productive; gets things done. 26
+Shows condescending behavior in relations with others. Acts as if self is superior to others. Low Placement implies only absence of acting superior, not necessarily acting as if all people are equal or that self is inferior to others. 27
+Tends to arouse liking and acceptance in people. 28
+Is turned to for advice and reassurance. 29
+Gives up and withdraws where possible in the face of frustration and adversity. Low Placement implies person tries even harder when obstacles appear. High Placement implies generally defeatist, gives up easily. 30
+Regards self as physically attractive. 31
+Seems to be aware of the impression he or she makes on others. 32
+Is calm, relaxed in manner. 33
+Over-reactive to minor frustrations; irritable. 34
+Has warmth; has the capacity for close relationships; compassionate. 35
+Is subtly negativistic; tends to undermine and obstruct or sabotage. 36
+Is guileful and deceitful, manipulative, opportunistic. Exploits and takes advantage of people and situations. 37
+Has hostility toward others. Feelings of hostility are intended here, regardless of how or whether they are actually expressed. 38
+Thinks and associates ideas in unusual ways; has unconventional thought processes. 39
+Is vulnerable to real or fancied threat, generally fearful. 40
+Is moralistic. Judges self and others strongly in terms of right and wrong, regardless of the particular nature of the moral code. 41
+Reluctant to commit self to any definite course of action; tends to delay or avoid action. 42
+Is facially and/or gesturally expressive. 43
+Evaluates the motivation of others in interpreting situations. Tries to figure out the intentions behind other people’s actions. Accuracy of evaluation is not assumed. Low Placement implies insensitivity to intentions of others. High Placement implies preoccupation or over concern with intentions of others. 44
+Has a brittle ego-defense system; has a small reserve of integration; would be disorganized and maladaptive when under stress or trauma. Does not cope well under stress or strain. 45
+Engages in personal fantasy and daydreams, fictional speculations. 46
+Has a readiness to feel guilt. Feelings of guilt are intended here, regardless of how or whether they are actually expressed. 47
+Keeps people at a distance; avoids close interpersonal relationships. 48
+Is basically distrustful of people in general; questions their motivations. 49
+Is unpredictable and changeable in behavior and attitudes. 50
+Genuinely values intellectual and cognitive matters. Ability or achievement is not implied here. 51
+Behaves in an assertive fashion. Speaks up to get what he or she wants; not afraid to express opinions. This refers to how the person acts, not how he/she might feel while doing so. 52
+Various needs tend toward relatively direct and uncontrolled expression; unable to delay gratification. Has little self-control; expresses emotions impulsively; unable to postpone pleasure. 53
+Emphasizes being with others; gregarious. Characteristically prefers to be with others rather than alone. 54
+Is self-defeating. Acts in ways which undermine, sabotage, or frustrate his or her own goals and desires. 55
+Responds to humor. Appreciates humor. 56
+Is an interesting, arresting person. 57
+Enjoys sensuous experiences (including touch, taste, smell, physical contact). 58
+Is concerned with own body and the adequacy of its physiological functioning. 59
+Has insight into own motives and behaviors. Knows and understands self well. 60
+Creates and exploits dependency in people. Causes others to be dependent and then takes advantage of this dependency, regardless of how this is done, e.g., by punishing them, spoiling them, etc. Low Placement implies person respects and encourages independence and individuality of others. 61
+Tends to be rebellious and non-conforming. 62
+Judges self and others in conventional terms like "popularity," "the correct thing to do," social pressures, etc. 63
+Is socially perceptive of a wide range of interpersonal cues. Is alert to clues which reveal how others are thinking or feeling. 64
+Characteristically pushes and tries to stretch limits; sees what he/she can get away with. 65
+Enjoys esthetic impressions; is esthetically reactive. E.g., appreciates or is moved by works of art, beautiful music, drama, etc. 66
+Is self-indulgent. Reluctant to deny self pleasure; tends to spoil self with pleasurable activities. 67
+Is basically anxious. Nervous, worries a lot underneath.  68
+Is sensitive to anything that can be construed as a demand. This refers to being alert to or aware of demands, regardless of how or whether the person responds to them. 69
+Behaves in an ethically consistent manner; is consistent with own personal standards. 70
+Has high aspiration level for self. 71
+Concerned with own adequacy as a person, either at conscious or unconscious levels. Worries about being inadequate as a person. Can be true even if person seems self satisfied on the surface. 72
+Tends to perceive many different contexts in sexual terms; eroticizes situations. Sees sexual overtones in most interactions.  73
+Is subjectively unaware of self-concern; feels satisfied with self. 74
+Has a clear cut internally consistent personality. N.B. Amount of information available before sorting is not intended here. 75
+Tends to project his/her own feelings and motivations onto others. Tends to see feelings and motives in others which he/she prefers not to recognize in self. 76
+Appears straightforward, forthright, and candid in dealing with others. 77
+Feels cheated and victimized by life; self-pitying. 78
+Tends to ruminate and have persistent, preoccupying thoughts. 79
+Interested in members of the opposite sex. Low Placement implies only the absence of such interest, not homosexual interests or dislike of the opposite sex. 80
+Is physically attractive; good looking. The culture’s definition of physical attractiveness is to be applied here. 81
+Has fluctuating moods. 82
+Able to see to the heart of important problems. 83
+Is cheerful. Low Placement implies unhappiness or depression. 84
+Emphasizes communication through action and non-verbal behavior. Prefers to express self through deeds, actions, or non-verbal communication, rather than through talking. 85
+Handles anxiety and conflicts by, in effect, refusing to recognize their presence; repressive or dissociative tendencies. Tends to deny unpleasant thoughts, conflicts, or feelings; prefers to believe they don’t exist. 86
+Interprets basically simple and clear-cut situations in complicated and particularizing ways. Particularizing implies detailed. 87
+Is personally charming. 88
+Compares self to others. Is alert to real or fancied differences between self and other people. 89
+Is concerned with philosophical problems; e.g., religions, values, the meaning of life, etc. 90
+Is power oriented; values power in self and others. 91
+Has social poise and presence; appears socially at ease. 92
+a. Behaves in a masculine style and manner. b. Behaves in a feminine style and manner. The culture’s definition of masculinity or feminity is to be applied here. If subject is male, 93a. applies; if subject is female, 93b. is to be evaluated. 93
+Expresses hostile feelings directly. 94
+Tends to proffer advice. Proffer = offer or give. 95
+Values own independence and autonomy. Autonomy = freedom to act and think without help or interference from others. 96
+Is emotionally bland; has flattened affect. Tends not to experience strong or intense emotions. 97
+Is verbally fluent; can express ideas well. 98
+Is self-dramatizing; histrionic. Theatrical; exaggerates emotion. 99
+Does not vary roles; relates to everyone in the same way. 100
+
+

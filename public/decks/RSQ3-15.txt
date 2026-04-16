@@ -1,0 +1,109 @@
+9
+Extremely Uncharacteristic
+3
+Quite Uncharacteristic
+6
+Fairly Uncharacteristic
+11
+Somewhat Uncharacteristic
+15
+Relatively Neutral
+19
+Somewhat Characteristic
+15
+Fairly Characteristic
+11
+Quite Characteristic
+6
+Extremely Characteristic
+3
+Situation is potentially enjoyable. 1
+Situation is complex. 2
+A job needs to be done. 3
+Someone is trying to impress P. 4
+Someone is trying to convince P of something. 5
+P is counted on to do something. 6
+Talking is permitted. 7
+Talking is expected or demanded. 8
+P is being asked for something. 9
+Someone needs help. 10
+Minor details are important. 11
+Situation evokes values concerning lifestyles or politics. 12
+Affords an opportunity to demonstrate intellectual capacity. (e.g., an intellectual discussion, a complex problem needs to be solved) 13
+Situation is uncertain. 14
+Another person (present or discussed) is under threat. 15
+P is being criticized, directly or indirectly. 16
+Someone is attempting to dominate or boss P. 17
+Situation is playful. 18
+Introspection is possible. (e.g., the atmosphere allows or encourages reflection upon deeply personal issues) 19
+Things are happening quickly. (Low placement implies things are happening slowly.) 20
+Someone (present or discussed) is unhappy or suffering. 21
+A reassuring other person is present. 22
+P is being blamed for something. 23
+A decision needs to be made. 24
+Rational thinking is called for. 25
+Situation calls for self-restraint. 26
+Situation involves competition. 27
+Affords an opportunity for P to do things that might make P liked or accepted. 28
+Others are present who need or desire reassurance. 29
+Situation entails frustration. (e.g., a goal is blocked) 30
+Physical attractiveness of P is relevant. 31
+It is important for P to make a good impression. 32
+Situation would make some people tense and upset. 33
+Situation includes one or more small annoyances. 34
+Situation might evoke warmth or compassion. 35
+A person or activity could be undermined or sabotaged. 36
+It is possible for P to deceive someone. 37
+Someone else in this situation (other than P) might be deceitful. 38
+Situation may cause feelings of hostility. 39
+People are disagreeing about something. 40
+Affords an opportunity to express unusual ideas or points of view. 41
+Situation contains physical threats. 42
+Situation contains emotional threats. 43
+Situation raises moral or ethical issues. (e.g., a moral dilemma is present; a discussion of morality) 44
+A quick decision or quick action is called for. 45
+Situation allows a free range of emotional expression. 46
+Others present might have conflicting or hidden motives. 47
+Situation entails or could entail stress or trauma. 48
+Affords an opportunity to ruminate, daydream or fantasize. 49
+Situation has potential to arouse guilt in P. 50
+Close personal relationships are present or have the potential to develop. 51
+Someone other than P is counted on to do something. 52
+Situation includes intellectual or cognitive stimuli. (e.g., books, lectures, intellectual conversation) 53
+Assertiveness is required to accomplish a goal. 54
+Situation includes potential for immediate gratification of desires. (e.g., food, shopping, sexual opportunities) 55
+Social interaction is possible. 56
+Situation is humorous or potentially humorous. (if one finds that sort of thing funny) 57
+P is the focus of attention. 58
+Situation includes sensuous stimuli. (e.g., touch, taste, smell, physical contact) 59
+Situation is relevant to bodily health of P. (e.g., possibility of illness; a medical visit) 60
+Success in this situation requires self-insight. 61
+P controls resources needed by others. 62
+Others present a wide range of interpersonal cues. (e.g., body language, tone of voice, social signals) 63
+Situation includes behavioral limits. (e.g., rules or social norms that might or might not be challenged) 64
+Situation includes aesthetic stimuli. (e.g., art, music, drama, beauty) 65
+Situation is potentially anxiety-inducing. 66
+Situation makes demands on P. (either explicitly or implicitly) 67
+Affords an opportunity to express or demonstrate ambition. 68
+Situation might make P feel inadequate. 69
+Situation includes stimuli that could be construed sexually. 70
+Situational demands are rapidly shifting. 71
+P is being abused or victimized. 72
+Members of the opposite sex are present. 73
+Potential romantic partners for P are present. 74
+Situation has potential to arouse competing motivations. 75
+Situation is basically simple and clear-cut. 76
+Affords an opportunity to express charm. 77
+Situation involves social comparison. 78
+Situation raises issues of power. (for P or others present) 79
+Affords an opportunity to express masculinity. 80
+Others may need or are requesting advice from P. 81
+Independence or autonomy of P is questioned or threatened. 82
+Situation is potentially emotionally arousing. 83
+Affords an opportunity for demonstrating verbal fluency. (e.g., a debate, a monologue, an active conversation) 84
+People who are present occupy different social roles or levels of status. 85
+P is being pressured to conform to the actions of others. 86
+Success requires cooperation. 87
+P is being complimented or praised. 88 
+Affords an opportunity to express femininity. 89
+
