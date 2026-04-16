@@ -8,7 +8,8 @@ interface ExportData {
 }
 
 /**
- * Export as CSV
+ * Export as CSV — 1 header row + 1 data row
+ * Columns: target_id, condition, deck_name, trial, started_at, finished_at, duration_sec, Q1, Q2, ..., QN
  */
 export function exportCsv(data: ExportData): string {
   const m = data.metadata;
@@ -16,15 +17,25 @@ export function exportCsv(data: ExportData): string {
     (new Date(m.finishedAt).getTime() - new Date(m.startedAt).getTime()) / 1000
   );
 
-  const header = 'target_id,condition,deck_name,trial,started_at,finished_at,duration_sec,item_id,item_text,pile';
+  const itemCount = data.deck.items.length;
+  const qHeaders = Array.from({ length: itemCount }, (_, i) => `Q${i + 1}`);
 
-  const rows = data.deck.items.map((item) => {
-    const pile = data.sortVector[item.id - 1] ?? '';
-    const text = `"${item.text.replace(/"/g, '""')}"`;
-    return `${m.targetId},${m.condition},${m.deckName},${m.trial},${m.startedAt},${m.finishedAt},${durationSec},${item.id},${text},${pile}`;
-  });
+  const header = ['target_id', 'condition', 'deck_name', 'trial', 'started_at', 'finished_at', 'duration_sec', ...qHeaders].join(',');
 
-  return [header, ...rows].join('\n');
+  const qValues = data.sortVector.map((v) => String(v));
+
+  const row = [
+    m.targetId,
+    m.condition,
+    m.deckName,
+    String(m.trial),
+    m.startedAt,
+    m.finishedAt,
+    String(durationSec),
+    ...qValues,
+  ].join(',');
+
+  return header + '\n' + row;
 }
 
 /**
@@ -38,10 +49,11 @@ export function suggestFilename(m: SessionMetadata): string {
 }
 
 /**
- * Trigger file download
+ * Trigger file download with BOM for Excel UTF-8 compatibility
  */
-export function downloadFile(content: string, filename: string, mime = 'text/csv') {
-  const blob = new Blob([content], { type: `${mime};charset=utf-8` });
+export function downloadFile(content: string, filename: string) {
+  const bom = '\uFEFF';
+  const blob = new Blob([bom + content], { type: 'text/csv;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
