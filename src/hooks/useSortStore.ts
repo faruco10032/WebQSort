@@ -35,6 +35,11 @@ interface SortStore {
   operationLog: OperationLogEntry[];
   addLogEntry: (entry: Omit<OperationLogEntry, 'timestamp'>) => void;
 
+  // Last export data (kept in memory only for re-download on export screen)
+  lastExportCsv: string | null;
+  lastExportFilename: string | null;
+  setLastExport: (csv: string, filename: string) => void;
+
   saveToLocalStorage: () => void;
   loadFromLocalStorage: () => boolean;
   clearCurrentSession: () => void;
@@ -131,6 +136,10 @@ export const useSortStore = create<SortStore>((set, get) => ({
     set((s) => ({
       operationLog: [...s.operationLog, { ...entry, timestamp: new Date().toISOString() }],
     })),
+
+  lastExportCsv: null,
+  lastExportFilename: null,
+  setLastExport: (csv, filename) => set({ lastExportCsv: csv, lastExportFilename: filename }),
 
   saveToLocalStorage: () => {
     const s = get();

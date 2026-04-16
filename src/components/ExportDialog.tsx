@@ -1,8 +1,15 @@
 import { useSortStore } from '../hooks/useSortStore';
+import { downloadFile } from '../lib/exporters';
 import { t } from '../lib/i18n';
 
 export function ExportDialog() {
-  const { clearCurrentSession, setPhase, lang } = useSortStore();
+  const { clearCurrentSession, setPhase, lastExportCsv, lastExportFilename, lang } = useSortStore();
+
+  const handleRedownload = () => {
+    if (lastExportCsv && lastExportFilename) {
+      downloadFile(lastExportCsv, lastExportFilename);
+    }
+  };
 
   return (
     <div className="max-w-md mx-auto p-6 pt-16 text-center">
@@ -15,6 +22,15 @@ export function ExportDialog() {
           {t(lang, 'downloadComplete')}
         </p>
       </div>
+
+      {lastExportCsv && (
+        <button
+          onClick={handleRedownload}
+          className="w-full py-3 mb-3 border-2 border-blue-600 text-blue-600 font-medium rounded hover:bg-blue-50 dark:hover:bg-blue-900/20 transition"
+        >
+          {t(lang, 'download')} ({lastExportFilename})
+        </button>
+      )}
 
       <button
         onClick={() => {

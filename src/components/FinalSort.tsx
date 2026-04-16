@@ -33,6 +33,7 @@ export function FinalSort() {
     setMetadata,
     getSortVector,
     clearCurrentSession,
+    setLastExport,
     lang,
   } = useSortStore();
 
@@ -121,7 +122,11 @@ export function FinalSort() {
     const sortVector = getSortVector();
     const finalMetadata = { ...metadata, finishedAt: now };
     const csv = exportCsv({ metadata: finalMetadata, deck, sortVector, pileConfig });
-    downloadFile(csv, suggestFilename(finalMetadata));
+    const filename = suggestFilename(finalMetadata);
+    downloadFile(csv, filename);
+
+    // Store export data for re-download on export screen
+    setLastExport(csv, filename);
 
     // Clear session from localStorage (don't persist completed data)
     clearCurrentSession();
